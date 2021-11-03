@@ -1,0 +1,8 @@
+.item {
+    color: purple;
+    font-size: 18px;
+}
+.item img {
+    width: 60px;
+    height: 60px;
+}
