@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form {
+    padding-bottom: 10px;
+}
+
+.posts {
+    margin-top: 10px;
+}
+
+
+

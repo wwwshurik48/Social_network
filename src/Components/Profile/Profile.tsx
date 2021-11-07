@@ -1,17 +1,27 @@
 import React from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {propsStateType} from "../../Redux/State";
 
 
-export const Profile = () => {
+
+type propsPostDataForProfile = {
+    postData: propsStateType
+}
+
+export const Profile = (props: propsPostDataForProfile) => {
+
+    // let PostData = [
+    //     {id: 1, message: 'Hi, how are you?', like: 10},
+    //     {id: 2, message: 'It\'s my first post', like: 25},
+    //     {id: 3, message: 'My name Alex', like: 11}
+    // ];
+
     return (
-        <div className={s.content}>
-            <img src="https://tipik.ru/wp-content/uploads/2018/11/1316796242_67_www.nevseoboi.com_.ua_.jpg"
-                 alt="img"/>
-            <div>
-                ava+description
-            </div>
-            <MyPosts/>
+        <div>
+            <ProfileInfo/>
+            <MyPosts postData={props.postData}/>
         </div>
     )
 }

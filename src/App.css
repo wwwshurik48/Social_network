@@ -4,10 +4,19 @@
     width: 1196px;
     grid-template-areas: 'h h' 'n c';
 
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 80px 1fr;
     grid-template-columns: 2fr 10fr;
 
 }
+
+.app-wrappe-content {
+    grid-area: c;
+    background-color: deepskyblue;
+    min-height: 640px;
+}
+
+
+
 
 
 

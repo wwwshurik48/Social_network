@@ -6,6 +6,7 @@ export const Header = () => {
     return (
         <header className={s.header}>
             <img src='https://vectorlogoseek.com/wp-content/uploads/2018/12/premier-league-vector-logo.png'/>
+            <span className={s.label}>Premier Social Network</span>
         </header>
     )
 }

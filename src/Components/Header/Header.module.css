@@ -4,7 +4,16 @@
 }
 
 .header img {
-    height: 50px;
-    width: 90px;
-    margin: 5px;
+    height: 60px;
+    width: 110px;
+    margin: 10px;
+}
+
+.label {
+    position: absolute;
+    top: 15px;
+    left: 47%;
+    font-size: 30px;
+    font-weight: bold;
+    color: darkblue;
 }

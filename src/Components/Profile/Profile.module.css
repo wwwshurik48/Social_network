@@ -1,13 +1,2 @@
-.content {
-    grid-area: c;
-    background-color: deepskyblue;
-}
 
-.content img {
-    width: 100%;
-    height: 400px;
-}
 
-.item {
-    color: white;
-}
