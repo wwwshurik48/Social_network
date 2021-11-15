@@ -5,7 +5,7 @@ import s from './Header.module.css'
 export const Header = () => {
     return (
         <header className={s.header}>
-            <img src='https://vectorlogoseek.com/wp-content/uploads/2018/12/premier-league-vector-logo.png'/>
+            <img src='https://img.devrant.com/devrant/rant/r_1431662_fcaK4.jpg' alt='img' />
             <span className={s.label}>Premier Social Network</span>
         </header>
     )

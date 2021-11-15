@@ -1,27 +1,38 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Posts";
 import {propsStateType} from "../../../Redux/State";
 
-
 type propsMyPostsType = {
     postData: propsStateType
+    callBackAddPost: (postText: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts = (props: propsMyPostsType) => {
-    // let PostData = [
-    // {id: 1, message: 'Hi, how are you?', like: 10},
-    // {id: 2, message: 'It\'s my first post', like: 25},
-    // {id: 3, message: 'My name Alex', like: 11}]
 
-    let PostsElement = props.postData.profilePage.posts.map(m => <Posts message={m.message} like={m.like}/>)
+    let PostsElement = props.postData.profilePage.posts.map(m => <Posts message={m.message} like={m.like} /> )
+
+    let newTextElement = React.createRef<HTMLTextAreaElement>();
+
+    let addNewPost = () => {
+        if (newTextElement.current) {
+            props.callBackAddPost(newTextElement.current.value);
+            props.updateNewPostText('')
+        }
+    }
+
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value);
+    }
+
     return (
         <div className={s.myPosts}>
             <div>
                 <h3>My posts</h3>
                 <div className={s.form}>
-                    <textarea className={s.textArea}></textarea>
-                    <button className={s.addPost}>Add post</button>
+                    <textarea onChange={onPostChange} ref={newTextElement} className={s.textArea} value={props.postData.profilePage.newPostText}></textarea>
+                    <button className={s.addPost} onClick={addNewPost}>Add post</button>
                 </div>
             </div>
             <div>
