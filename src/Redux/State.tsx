@@ -1,5 +1,12 @@
 import React from 'react';
-import {renderTree} from "../renderTree";
+
+let rerenderTree = (state:propsStateType) => {
+    console.log('state change')
+}
+
+export const subscriber = (callback: (state:propsStateType) => void) => {
+    rerenderTree = callback
+}
 
 export type propsStateType = {
     profilePage: propsPostsArrayType
@@ -62,12 +69,12 @@ let state: propsStateType = {
 export let addPost = (postText: string) => {
     let newPost: propsPostsType = {id: 4, message: postText, like: 0}
     state.profilePage.posts.push(newPost)
-    renderTree(state);
+    rerenderTree(state);
 }
 
 export let updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    renderTree(state);
+    rerenderTree(state);
 }
 
 export default state;

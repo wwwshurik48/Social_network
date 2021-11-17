@@ -17,7 +17,6 @@ export const Profile = (props: propsPostDataForProfile) => {
             <MyPosts postData={props.postData}
                      callBackAddPost={props.callBackAddPost}
                      updateNewPostText={updateNewPostText}
-
             />
         </div>
     )
