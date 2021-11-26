@@ -1,14 +1,6 @@
 import React from 'react';
 
-let rerenderTree = (state:propsStateType) => {
-    console.log('state change')
-}
-
-export const subscriber = (callback: (state:propsStateType) => void) => {
-    rerenderTree = callback
-}
-
-export type propsStateType = {
+ export type propsStateType = {
     profilePage: propsPostsArrayType
     dialogsPage: propsDialogsArrayType
     siteBar: {}
@@ -38,43 +30,79 @@ export type propsDialogsArrayType = {
     messages: Array<propsMessagesType>
 }
 
-let state: propsStateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hi, how are you?', like: 10},
-            {id: 2, message: 'It\'s my first post', like: 25},
-            {id: 3, message: 'My name Alex', like: 11}
-        ],
-        newPostText: ''
+export type StoreType = {
+    _state: propsStateType
+    _callSubscriber: (store: StoreType) => void
+    subscriber: (observer: (store: StoreType) => void) => void
+    getState: () => propsStateType
+    dispatch: (action: ActionsTypes) => void
+}
+export type ActionsTypes = ReturnType<typeof AddPostAC> | ReturnType<typeof UpdateNewPostAction> ;
+
+ export const AddPostAC = (postText: string) => {
+     return {
+         type: "ADD-POST", postText: postText
+     }as const
+ }
+
+ export const UpdateNewPostAction = (newText: string) => {
+     return{
+         type: "UPDATE-NEW-POST-TEXT", newText
+     }as const
+ }
+
+const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hi, how are you?', like: 10},
+                {id: 2, message: 'It\'s my first post', like: 25},
+                {id: 3, message: 'My name Alex', like: 11}
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: '1', name: 'Dimych'},
+                {id: '2', name: 'Pavel'},
+                {id: '3', name: 'German'},
+                {id: '4', name: 'David'},
+                {id: '5', name: 'Egor'},
+                {id: '6', name: 'Ivan'}
+            ],
+            messages: [
+                {id: 1, message: 'Hi boy!!!'},
+                {id: 2, message: 'How is your it-kamasutra???'},
+                {id: 3, message: 'YO YO YO'},
+                {id: 4, message: 'HO HO HO'}
+            ]
+        },
+        siteBar: {}
     },
-    dialogsPage: {
-        dialogs: [
-            {id: '1', name: 'Dimych'},
-            {id: '2', name: 'Pavel'},
-            {id: '3', name: 'German'},
-            {id: '4', name: 'David'},
-            {id: '5', name: 'Egor'},
-            {id: '6', name: 'Ivan'}
-        ],
-        messages: [
-            {id: 1, message: 'Hi boy!!!'},
-            {id: 2, message: 'How is your it-kamasutra???'},
-            {id: 3, message: 'YO YO YO'},
-            {id: 4, message: 'HO HO HO'}
-        ]
+    _callSubscriber() {
+        console.log('state change');
     },
-    siteBar: {}
+
+    subscriber(observer) {
+        this._callSubscriber = observer;
+    },
+
+    getState() {
+        return this._state;
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: propsPostsType = {id: 4, message: action.postText, like: 0};
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(store);
+        }else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(store);
+        }
+    }
+
 }
 
-export let addPost = (postText: string) => {
-    let newPost: propsPostsType = {id: 4, message: postText, like: 0}
-    state.profilePage.posts.push(newPost)
-    rerenderTree(state);
-}
-
-export let updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    rerenderTree(state);
-}
-
-export default state;
+export default store;

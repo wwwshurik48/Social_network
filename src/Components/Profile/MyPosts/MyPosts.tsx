@@ -1,29 +1,37 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Posts";
-import {propsStateType} from "../../../Redux/State";
+import {
+    ActionsTypes,
+    AddPostAC,
+    propsPostsArrayType,
+    UpdateNewPostAction
+} from "../../../Redux/State";
 
 type propsMyPostsType = {
-    postData: propsStateType
-    callBackAddPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    postData: propsPostsArrayType
+    dispatch: (action: ActionsTypes) => void
+    // callBackAddPost: (postText: string) => void
+    // updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts = (props: propsMyPostsType) => {
 
-    let PostsElement = props.postData.profilePage.posts.map(m => <Posts message={m.message} like={m.like} /> )
+    let PostsElement = props.postData.posts.map(m => <Posts message={m.message} like={m.like} /> )
 
-    let newTextElement = React.createRef<HTMLTextAreaElement>();
+    // let newTextElement = React.createRef<HTMLTextAreaElement>();
 
     let addNewPost = () => {
-        if (newTextElement.current) {
-            props.callBackAddPost(newTextElement.current.value);
-            props.updateNewPostText('')
-        }
+        props.dispatch(AddPostAC(props.postData.newPostText))
+        // if (newTextElement.current) {
+        //     props.callBackAddPost(newTextElement.current.value);
+        //     props.updateNewPostText('')
+        // }
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value);
+       props.dispatch(UpdateNewPostAction(e.target.value))
+        // props.updateNewPostText(e.currentTarget.value);
     }
 
     return (
@@ -31,7 +39,7 @@ export const MyPosts = (props: propsMyPostsType) => {
             <div>
                 <h3>My posts</h3>
                 <div className={s.form}>
-                    <textarea onChange={onPostChange} ref={newTextElement} className={s.textArea} value={props.postData.profilePage.newPostText}></textarea>
+                    <textarea onChange={onPostChange} className={s.textArea} value={props.postData.newPostText}></textarea>
                     <button className={s.addPost} onClick={addNewPost}>Add post</button>
                 </div>
             </div>
@@ -44,3 +52,24 @@ export const MyPosts = (props: propsMyPostsType) => {
         </div>
     )
 }
+
+
+
+// export const MyPosts = (props: propsMyPostsType) => {
+//
+//     let PostsElement = props.postData.posts.map(m => <Posts message={m.message} like={m.like} /> )
+//
+//     let newTextElement = React.createRef<HTMLTextAreaElement>();
+//
+//     let addNewPost = () => {
+//         if (newTextElement.current) {
+//             props.callBackAddPost(newTextElement.current.value);
+//             props.updateNewPostText('')
+//         }
+//     }
+//
+//     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+//         props.updateNewPostText(e.currentTarget.value);
+//     }
+//     props.postData.profilePage.newPostText
+//     return (

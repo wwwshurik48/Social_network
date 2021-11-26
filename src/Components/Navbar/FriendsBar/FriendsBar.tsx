@@ -4,7 +4,7 @@ import s from './../Navbar.module.css'
 export const FriendsBar = () => {
     return (
         <div className={s.friendsBar}>
-            <span>Dodiki</span>
+            <span>Friends</span>
             <div className={s.friendsFoto}>
                 <div>
                     <img
