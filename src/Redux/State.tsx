@@ -101,7 +101,8 @@ const store: StoreType = {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(store);
         }
-    }
+    },
+
 
 }
 
