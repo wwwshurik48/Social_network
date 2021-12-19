@@ -1,5 +1,10 @@
 import React from 'react';
 
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
+const SEND_MESSAGE = "SEND-MESSAGE"
+
  export type propsStateType = {
     profilePage: propsPostsArrayType
     dialogsPage: propsDialogsArrayType
@@ -28,6 +33,7 @@ type propsMessagesType = {
 export type propsDialogsArrayType = {
     dialogs: Array<propsDialogsType>
     messages: Array<propsMessagesType>
+    newMessageBody: string
 }
 
 export type StoreType = {
@@ -37,18 +43,33 @@ export type StoreType = {
     getState: () => propsStateType
     dispatch: (action: ActionsTypes) => void
 }
-export type ActionsTypes = ReturnType<typeof AddPostAC> | ReturnType<typeof UpdateNewPostAction> ;
+export type ActionsTypes =
+    | ReturnType<typeof AddPostAC>
+    | ReturnType<typeof UpdateNewPostAction>
+    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof updateNewMessageBody>;
 
- export const AddPostAC = (postText: string) => {
+export const AddPostAC = (postText: string) => {
      return {
-         type: "ADD-POST", postText: postText
+         type: ADD_POST, postText: postText
      }as const
  }
 
  export const UpdateNewPostAction = (newText: string) => {
      return{
-         type: "UPDATE-NEW-POST-TEXT", newText
+         type: UPDATE_NEW_POST_TEXT, newText
      }as const
+ }
+
+ export const sendMessageAC = () => {
+     return {
+         type: SEND_MESSAGE
+     } as const
+ }
+ export const updateNewMessageBody = (body: string) => {
+     return{
+         type: UPDATE_NEW_MESSAGE_BODY, body: body
+     } as const
  }
 
 const store: StoreType = {
@@ -75,7 +96,8 @@ const store: StoreType = {
                 {id: 2, message: 'How is your it-kamasutra???'},
                 {id: 3, message: 'YO YO YO'},
                 {id: 4, message: 'HO HO HO'}
-            ]
+            ],
+            newMessageBody: ''
         },
         siteBar: {}
     },
@@ -91,19 +113,28 @@ const store: StoreType = {
         return this._state;
     },
 
-    dispatch(action) {
-        if (action.type === 'ADD-POST') {
+    dispatch(action: ActionsTypes) {
+        if (action.type === ADD_POST) {
             let newPost: propsPostsType = {id: 4, message: action.postText, like: 0};
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(store);
-        }else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+
+        }else if (action.type === UPDATE_NEW_POST_TEXT){
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(store);
+
+        }else if (action.type === UPDATE_NEW_MESSAGE_BODY){
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber(store)
+
+        }else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({id: 5, message: body})
+            this._callSubscriber(store)
         }
-    },
-
-
+    }
 }
 
 export default store;

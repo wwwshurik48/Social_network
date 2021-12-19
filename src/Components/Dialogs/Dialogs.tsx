@@ -2,11 +2,12 @@ import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
-import {propsStateType} from "../../Redux/State";
+import {ActionsTypes, propsStateType, sendMessageAC, StoreType, updateNewMessageBody} from "../../Redux/State";
 
 export type dialogsDataForDialogsType = {
     dialogsData: propsStateType
     messagesData: propsStateType
+    dispatch: (action: ActionsTypes) => void
 }
 
 export const Dialogs = (props: dialogsDataForDialogsType) => {
@@ -15,11 +16,14 @@ export const Dialogs = (props: dialogsDataForDialogsType) => {
 
     let messagesElement = props.messagesData.dialogsPage.messages.map(m => <MessageItem message={m.message}/>);
 
-    let textAreaElement = React.createRef<HTMLTextAreaElement>()
+    let newMessageBody = props.dialogsData.dialogsPage.newMessageBody;
 
-    let buttonElement = () => {
-        let text = textAreaElement.current && textAreaElement.current.value;
-        alert(text);
+    let OnClickButton = () => {
+        props.dispatch(sendMessageAC())
+    }
+    let onNewMessageChange = (e: any) => {
+        let body = e.currentTarget.value;
+        props.dispatch(updateNewMessageBody(body))
     }
 
     return (
@@ -31,10 +35,16 @@ export const Dialogs = (props: dialogsDataForDialogsType) => {
                 {messagesElement}
                 <div>
                     <div>
-                        <textarea ref={textAreaElement} className={s.textAreaElement}></textarea>
+                        <textarea
+                            value={newMessageBody}
+                            className={s.textAreaElement}
+                            placeholder='Enter your message'
+                            onChange={onNewMessageChange}
+                        >
+                        </textarea>
                     </div>
                     <div>
-                        <button onClick={buttonElement} className={s.buttonElement}>Add new message</button>
+                        <button onClick={OnClickButton} className={s.buttonElement}>Send message</button>
                     </div>
                 </div>
             </div>
