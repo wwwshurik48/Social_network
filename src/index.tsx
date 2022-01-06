@@ -1,18 +1,19 @@
 import React from 'react';
-import store, {StoreType} from "./Redux/State";
+import {stateType} from "./Redux/redux-store";
 import './index.css';
 import reportWebVitals from "./reportWebVitals";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
-
+import {StoreType} from "./Redux/State";
+import store from './Redux/State'
 
 const rerenderEntireTree = (store: StoreType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App stateApp={store.getState()}
                  dispatch={store.dispatch.bind(store)}
+                 // updateNewPostText={store.getState}
             />
         </React.StrictMode>,
         document.getElementById('root')

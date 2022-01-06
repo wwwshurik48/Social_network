@@ -3,12 +3,12 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {propsStateType, ActionsTypes} from "./Redux/State";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 export type propsStateForApp = {
@@ -28,9 +28,9 @@ function App(props: propsStateForApp) {
                 <Navbar/>
                 <div className='app-wrappe-content'>
                     <Routes>
-                        <Route path={'/profile'} element={<Profile postData={props.stateApp.profilePage}  dispatch={props.dispatch}/>}/>
+                        <Route path={'/profile'} element={<Profile stateApp={props.stateApp} dispatch={props.dispatch}/>}/>
                         <Route path='/dialogs/*'
-                               element={<Dialogs messagesData={props.stateApp} dialogsData={props.stateApp} dispatch={props.dispatch}/>}/>
+                               element={<DialogsContainer messagesData={props.stateApp} dialogsData={props.stateApp} dispatch={props.dispatch}/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
@@ -76,3 +76,26 @@ export default App;
 //         </BrowserRouter>
 //     );
 // }
+
+
+
+// return (
+//
+//         <BrowserRouter>
+//             <div className="app-wrapper">
+//                 <Header/>
+//                 <Navbar/>
+//                 <div className='app-wrappe-content'>
+//                     <Routes>
+//                         <Route path={'/profile'} element={<Profile postData={props.stateApp.profilePage}  dispatch={props.dispatch} updateNewPostText={props.updateNewPostText}/>}/>
+//                         <Route path='/dialogs/*'
+//                                element={<Dialogs messagesData={props.stateApp} dialogsData={props.stateApp} dispatch={props.dispatch}/>}/>
+//                         <Route path='/news' element={<News/>}/>
+//                         <Route path='/news' element={<News/>}/>
+//                         <Route path='/music' element={<Music/>}/>
+//                         <Route path='/settings' element={<Settings/>}/>
+//                     </Routes>
+//                 </div>
+//             </div>
+//         </BrowserRouter>
+//     );

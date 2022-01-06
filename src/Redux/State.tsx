@@ -1,4 +1,7 @@
 import React from 'react';
+import ProfileReducer from "./Profile-reducer";
+import DialogsReducer from "./Dialogs-reducer";
+import SidebarReducer from "./Sidebar-reducer";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -8,7 +11,7 @@ const SEND_MESSAGE = "SEND-MESSAGE"
  export type propsStateType = {
     profilePage: propsPostsArrayType
     dialogsPage: propsDialogsArrayType
-    siteBar: {}
+    sideBar: {}
 }
 export type propsPostsType = {
     id: number
@@ -99,7 +102,7 @@ const store: StoreType = {
             ],
             newMessageBody: ''
         },
-        siteBar: {}
+        sideBar: {}
     },
     _callSubscriber() {
         console.log('state change');
@@ -114,26 +117,32 @@ const store: StoreType = {
     },
 
     dispatch(action: ActionsTypes) {
-        if (action.type === ADD_POST) {
-            let newPost: propsPostsType = {id: 4, message: action.postText, like: 0};
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(store);
 
-        }else if (action.type === UPDATE_NEW_POST_TEXT){
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(store);
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
+        this._state.sideBar = SidebarReducer(store)
+        this._callSubscriber(store)
 
-        }else if (action.type === UPDATE_NEW_MESSAGE_BODY){
-            this._state.dialogsPage.newMessageBody = action.body;
-            this._callSubscriber(store)
-
-        }else if (action.type === SEND_MESSAGE) {
-            let body = this._state.dialogsPage.newMessageBody;
-            this._state.dialogsPage.newMessageBody = '';
-            this._state.dialogsPage.messages.push({id: 5, message: body})
-            this._callSubscriber(store)
-        }
+        // if (action.type === ADD_POST) {
+        //     let newPost: propsPostsType = {id: 4, message: action.postText, like: 0};
+        //     this._state.profilePage.posts.push(newPost);
+        //     this._state.profilePage.newPostText = '';
+        //     this._callSubscriber(store);
+        //
+        // }else if (action.type === UPDATE_NEW_POST_TEXT){
+        //     this._state.profilePage.newPostText = action.newText;
+        //     this._callSubscriber(store);
+        //
+        // }else if (action.type === UPDATE_NEW_MESSAGE_BODY){
+        //     this._state.dialogsPage.newMessageBody = action.body;
+        //     this._callSubscriber(store)
+        //
+        // }else if (action.type === SEND_MESSAGE) {
+        //     let body = this._state.dialogsPage.newMessageBody;
+        //     this._state.dialogsPage.newMessageBody = '';
+        //     this._state.dialogsPage.messages.push({id: 5, message: body})
+        //     this._callSubscriber(store)
+        // }
     }
 }
 
