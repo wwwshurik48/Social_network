@@ -1,42 +1,43 @@
 import React, {ChangeEvent} from "react";
-import {Posts} from "./Post/Posts";
 import {
     ActionsTypes,
     AddPostAC,
-    propsPostsArrayType, propsStateType,
+    propsPostsArrayType, propsStateType, StoreType,
     UpdateNewPostAction
 } from "../../../Redux/State";
 import {MyPosts} from "./MyPosts";
+import StoreContext from "../../../StoreContext";
 
-type propsContainerMyPostsType = {
-    // postData: propsPostsArrayType
-    stateApp: propsStateType
-    dispatch: (action: ActionsTypes) => void
-    // callBackAddPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
+// type propsContainerMyPostsType = {
+//     store: StoreType
+//     // postData: propsPostsArrayType
+//     // stateApp: propsStateType
+//     // dispatch: (action: ActionsTypes) => void
+//     // callBackAddPost: (postText: string) => void
+//     // updateNewPostText: (newText: string) => void
+//
+// }
 
-}
+const ContainerMyPosts = () => {
 
-const ContainerMyPosts = (props: propsContainerMyPostsType) => {
+    return (
+        <StoreContext.Consumer>
+            {(store) => {
+                let addNewPost = () => {
+                    store.dispatch(AddPostAC(store._state.profilePage.newPostText))
+                }
 
-    let addNewPost = () => {
-        props.dispatch(AddPostAC(props.stateApp.profilePage.newPostText))
+                const onPostChange = (newPostText: string) => {
+                    store.dispatch(UpdateNewPostAction(newPostText))
+                }
 
-        // if (newTextElement.current) {
-        //     props.callBackAddPost(newTextElement.current.value);
-        //     props.updateNewPostText('')
-        // }
-    }
-
-    const onPostChange = (newPostText: string) => {
-        props.dispatch(UpdateNewPostAction(newPostText))
-        // props.updateNewPostText(e.currentTarget.value);
-    }
-
-    return  (
-
-        <MyPosts stateApp={props.stateApp} addPost={addNewPost} updateNewPostText={onPostChange}/>)
-
+                return <MyPosts store={store}
+                                addPost={addNewPost}
+                                updateNewPostText={onPostChange}/>
+            }
+            }
+        </ StoreContext.Consumer>
+    )
 }
 
 export default ContainerMyPosts;

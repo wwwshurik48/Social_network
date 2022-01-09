@@ -2,32 +2,28 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Posts";
 import {
-    propsPostsArrayType, propsStateType,
+    propsPostsArrayType, propsStateType, StoreType,
     UpdateNewPostAction
 } from "../../../Redux/State";
 
 type propsMyPostsType = {
+    store: StoreType
     addPost: () => void
-    // postData: propsPostsArrayType
-    stateApp: propsStateType
     updateNewPostText: (newText: string) => void
+    // postData: propsPostsArrayType
+    // stateApp: propsStateType
     // dispatch: (action: ActionsTypes) => void
     // callBackAddPost: (postText: string) => void
 }
 
 export const MyPosts = (props: propsMyPostsType) => {
 
-    let PostsElement = props.stateApp.profilePage.posts.map(m => <Posts message={m.message} like={m.like} /> )
+    let PostsElement = props.store._state.profilePage.posts.map(m => <Posts message={m.message} like={m.like} /> )
 
     // let newTextElement = React.createRef<HTMLTextAreaElement>();
 
     let addNewPost = () => {
         props.addPost();
-        // props.dispatch(AddPostAC(props.postData.newPostText))
-        // if (newTextElement.current) {
-        //     props.callBackAddPost(newTextElement.current.value);
-        //     props.updateNewPostText('')
-        // }
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,7 +40,7 @@ export const MyPosts = (props: propsMyPostsType) => {
             <div>
                 <h3>My posts</h3>
                 <div className={s.form}>
-                    <textarea onKeyPress={onKeyPressHandler} onChange={onPostChange} className={s.textArea} value={props.stateApp.profilePage.newPostText}></textarea>
+                    <textarea onKeyPress={onKeyPressHandler} onChange={onPostChange} className={s.textArea} value={props.store._state.profilePage.newPostText}></textarea>
                     <button className={s.addPost} onClick={addNewPost}>Add post</button>
                 </div>
             </div>

@@ -5,19 +5,20 @@ import {MessageItem} from "./MessageItem/MessageItem";
 import {ActionsTypes, propsStateType, sendMessageAC, StoreType, updateNewMessageBody} from "../../Redux/State";
 
 export type dialogsDataForDialogsType = {
-    stateApp: propsStateType
+    // stateApp: propsStateType
     // messagesData: propsStateType
+    store: StoreType
     updateNewMessageBody: (body: any) => void
     sendMessage: () => void
 }
 
 const Dialogs = (props: dialogsDataForDialogsType) => {
 
-    let dialogsElement = props.stateApp.dialogsPage.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>);
+    let dialogsElement = props.store._state.dialogsPage.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>);
 
-    let messagesElement = props.stateApp.dialogsPage.messages.map(m => <MessageItem message={m.message}/>);
+    let messagesElement = props.store._state.dialogsPage.messages.map(m => <MessageItem message={m.message}/>);
 
-    let newMessageBody = props.stateApp.dialogsPage.newMessageBody;
+    let newMessageBody = props.store._state.dialogsPage.newMessageBody;
 
     let OnClickButton = () => {
         props.sendMessage()

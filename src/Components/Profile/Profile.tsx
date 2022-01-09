@@ -3,27 +3,29 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {
     ActionsTypes,
-    propsPostsArrayType, propsStateType,
+    propsPostsArrayType, propsStateType, StoreType,
 } from "../../Redux/State";
 import ContainerMyPosts from "./MyPosts/ContainerMyPosts";
 
-type propsPostDataForProfile = {
-    // postData: propsPostsArrayType
-    dispatch: (action: ActionsTypes) => void
-    stateApp: propsStateType
-    // callBackAddPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
-}
+// type propsPostDataForProfile = {
+//     store: StoreType
+//     // postData: propsPostsArrayType
+//     // dispatch: (action: ActionsTypes) => void
+//     // stateApp: propsStateType
+//     // callBackAddPost: (postText: string) => void
+//     // updateNewPostText: (newText: string) => void
+// }
 
-export const Profile = (props: propsPostDataForProfile) => {
+export const Profile = () => {
 
     return (
         <div>
             <ProfileInfo/>
             <ContainerMyPosts
-                dispatch={props.dispatch}
-                // postData={props.postData}
-                stateApp={props.stateApp}
+                // store={props.store}
+                // dispatch={props.dispatch}
+                // // postData={props.postData}
+                // stateApp={props.stateApp}
 
             />
         </div>
