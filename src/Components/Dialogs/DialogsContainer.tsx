@@ -6,8 +6,7 @@ import {ActionsTypes, propsStateType, sendMessageAC, StoreType, updateNewMessage
 import Dialogs from "./Dialogs";
 
 export type dialogsDataForContainer = {
-    dialogsData: propsStateType
-    messagesData: propsStateType
+    stateApp: propsStateType
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -30,8 +29,8 @@ export const DialogsContainer = (props: dialogsDataForContainer) => {
       <Dialogs
           updateNewMessageBody={onNewMessageChange}
           sendMessage={OnClickButton}
-          dialogsData={props.dialogsData}
-          messagesData={props.messagesData}/>
+          stateApp={props.stateApp}
+          />
     )
 }
 

@@ -33,8 +33,10 @@ const ContainerMyPosts = (props: propsContainerMyPostsType) => {
         // props.updateNewPostText(e.currentTarget.value);
     }
 
-    return  (<MyPosts stateApp={props.stateApp} addPost={addNewPost} updateNewPostText={onPostChange}/>)
-    
+    return  (
+
+        <MyPosts stateApp={props.stateApp} addPost={addNewPost} updateNewPostText={onPostChange}/>)
+
 }
 
 export default ContainerMyPosts;

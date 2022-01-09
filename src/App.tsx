@@ -9,11 +9,13 @@ import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {propsStateType, ActionsTypes} from "./Redux/State";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import StoreContext from "./StoreContext";
 
 
 export type propsStateForApp = {
     stateApp: propsStateType
     dispatch: (action: ActionsTypes) => void
+
     // addPost: (postText: string) => void
     // updateNewPostText: (newText: string) => void
 }
@@ -23,6 +25,7 @@ function App(props: propsStateForApp) {
     return (
 
         <BrowserRouter>
+
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -30,7 +33,7 @@ function App(props: propsStateForApp) {
                     <Routes>
                         <Route path={'/profile'} element={<Profile stateApp={props.stateApp} dispatch={props.dispatch}/>}/>
                         <Route path='/dialogs/*'
-                               element={<DialogsContainer messagesData={props.stateApp} dialogsData={props.stateApp} dispatch={props.dispatch}/>}/>
+                               element={<DialogsContainer stateApp={props.stateApp} dispatch={props.dispatch}/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
