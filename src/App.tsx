@@ -7,37 +7,35 @@ import {Route, Routes} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {propsStateType, ActionsTypes, StoreType} from "./Redux/State";
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
-import StoreContext from "./StoreContext";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
-
-export type propsStateForApp = {
-    store: StoreType
-    // stateApp: propsStateType
-    // dispatch: (action: ActionsTypes) => void
-    // addPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
-}
+//
+// export type propsStateForApp = {
+//     store: StoreType
+//     // stateApp: propsStateType
+//     // dispatch: (action: ActionsTypes) => void
+//     // addPost: (postText: string) => void
+//     // updateNewPostText: (newText: string) => void
+// }
 
 function App() {
 
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className='app-wrappe-content'>
-                    <Routes>
-                        <Route path={'/profile'} element={<Profile />}/>
-                        <Route path='/dialogs/*'
-                               element={<DialogsContainer />}/>
-                        <Route path='/news' element={<News/>}/>
-                        <Route path='/news' element={<News/>}/>
-                        <Route path='/music' element={<Music/>}/>
-                        <Route path='/settings' element={<Settings/>}/>
-                    </Routes>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className='app-wrappe-content'>
+                <Routes>
+                    <Route path={'/profile'} element={<Profile/>}/>
+                    <Route path='/dialogs/*'
+                           element={<DialogsContainer/>}/>
+                    <Route path='/news' element={<News/>}/>
+                    <Route path='/news' element={<News/>}/>
+                    <Route path='/music' element={<Music/>}/>
+                    <Route path='/settings' element={<Settings/>}/>
+                </Routes>
             </div>
+        </div>
     );
 }
 
@@ -65,7 +63,6 @@ export default App;
 // }
 //
 // export default App;
-
 
 
 // return (

@@ -1,11 +1,18 @@
 import React from "react";
-import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {
-    ActionsTypes,
-    propsPostsArrayType, propsStateType, StoreType,
-} from "../../Redux/State";
 import ContainerMyPosts from "./MyPosts/ContainerMyPosts";
+
+export const Profile = () => {
+
+    return (
+        <div>
+            <ProfileInfo/>
+            <ContainerMyPosts
+
+            />
+        </div>
+    )
+}
 
 // type propsPostDataForProfile = {
 //     store: StoreType
@@ -15,24 +22,6 @@ import ContainerMyPosts from "./MyPosts/ContainerMyPosts";
 //     // callBackAddPost: (postText: string) => void
 //     // updateNewPostText: (newText: string) => void
 // }
-
-export const Profile = () => {
-
-    return (
-        <div>
-            <ProfileInfo/>
-            <ContainerMyPosts
-                // store={props.store}
-                // dispatch={props.dispatch}
-                // // postData={props.postData}
-                // stateApp={props.stateApp}
-
-            />
-        </div>
-    )
-}
-
-
 //export const Profile = (props: propsPostDataForProfile) => {
 //
 //     return (

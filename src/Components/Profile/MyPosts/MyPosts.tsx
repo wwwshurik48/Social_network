@@ -1,24 +1,22 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Posts";
-import {
-    propsPostsArrayType, propsStateType, StoreType,
-    UpdateNewPostAction
-} from "../../../Redux/State";
+import {MyPostsType} from "./ContainerMyPosts";
+import {AppStateType} from "../../../Redux/redux-store";
 
-type propsMyPostsType = {
-    store: StoreType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    // postData: propsPostsArrayType
-    // stateApp: propsStateType
-    // dispatch: (action: ActionsTypes) => void
-    // callBackAddPost: (postText: string) => void
-}
+// type propsMyPostsType = {
+//     store: StoreType
+//     addPost: () => void
+//     updateNewPostText: (newText: string) => void
+//     // postData: propsPostsArrayType
+//     // stateApp: propsStateType
+//     // dispatch: (action: ActionsTypes) => void
+//     // callBackAddPost: (postText: string) => void
+// }
 
-export const MyPosts = (props: propsMyPostsType) => {
+export const MyPosts = (props: MyPostsType) => {
 
-    let PostsElement = props.store._state.profilePage.posts.map(m => <Posts message={m.message} like={m.like} /> )
+    let PostsElement = props.state.profilePage.posts.map(m => <Posts message={m.message} like={m.like}/>)
 
     // let newTextElement = React.createRef<HTMLTextAreaElement>();
 
@@ -40,7 +38,8 @@ export const MyPosts = (props: propsMyPostsType) => {
             <div>
                 <h3>My posts</h3>
                 <div className={s.form}>
-                    <textarea onKeyPress={onKeyPressHandler} onChange={onPostChange} className={s.textArea} value={props.store._state.profilePage.newPostText}></textarea>
+                    <textarea onKeyPress={onKeyPressHandler} onChange={onPostChange} className={s.textArea}
+                              value={props.state.profilePage.newPostText}></textarea>
                     <button className={s.addPost} onClick={addNewPost}>Add post</button>
                 </div>
             </div>

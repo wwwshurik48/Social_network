@@ -2,23 +2,15 @@ import React, {KeyboardEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
-import {ActionsTypes, propsStateType, sendMessageAC, StoreType, updateNewMessageBody} from "../../Redux/State";
+import {DialogsPropsType} from "./DialogsContainer";
 
-export type dialogsDataForDialogsType = {
-    // stateApp: propsStateType
-    // messagesData: propsStateType
-    store: StoreType
-    updateNewMessageBody: (body: any) => void
-    sendMessage: () => void
-}
+const Dialogs = (props: DialogsPropsType) => {
 
-const Dialogs = (props: dialogsDataForDialogsType) => {
+    let dialogsElement = props.dialogsPage.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>);
 
-    let dialogsElement = props.store._state.dialogsPage.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>);
+    let messagesElement = props.dialogsPage.messages.map(m => <MessageItem message={m.message}/>);
 
-    let messagesElement = props.store._state.dialogsPage.messages.map(m => <MessageItem message={m.message}/>);
-
-    let newMessageBody = props.store._state.dialogsPage.newMessageBody;
+    let newMessageBody = props.dialogsPage.newMessageBody;
 
     let OnClickButton = () => {
         props.sendMessage()

@@ -1,7 +1,18 @@
-import {ActionsTypes, propsPostsArrayType, propsPostsType, propsStateType} from "./State";
+import {ActionsTypes} from "./State";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
+type ArrayPostsType = {
+    posts: Array<PostsType>
+    newPostText: string
+}
+
+type PostsType = {
+    id: number
+    message: string
+    like: number
+}
 
 let initialState = {
     posts: [
@@ -12,18 +23,18 @@ let initialState = {
     newPostText: ''
 };
 
-const ProfileReducer = (store: propsPostsArrayType = initialState, action: ActionsTypes) => {
+const ProfileReducer = (state: ArrayPostsType = initialState, action: ActionsTypes): ArrayPostsType => {
         switch (action.type) {
             case ADD_POST:
-                let newPost: propsPostsType = {id: 4, message: action.postText, like: 0};
-                store.posts.push(newPost);
-                store.newPostText = '';
-                return store
+                let newPost: PostsType = {id: 4, message: state.newPostText, like: 0};
+                state.posts.push(newPost);
+                state.newPostText = '';
+                return state
             case UPDATE_NEW_POST_TEXT:
-                store.newPostText = action.newText;
-                return store
+                state.newPostText = action.newText;
+                return state
             default:
-                return store
+                return state
         }
 }
 export default ProfileReducer;

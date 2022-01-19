@@ -33,7 +33,7 @@ type propsMessagesType = {
     message: string
 }
 
-export type propsDialogsArrayType = {
+type propsDialogsArrayType = {
     dialogs: Array<propsDialogsType>
     messages: Array<propsMessagesType>
     newMessageBody: string
@@ -52,9 +52,9 @@ export type ActionsTypes =
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof updateNewMessageBody>;
 
-export const AddPostAC = (postText: string) => {
+export const AddPostAC = () => {
      return {
-         type: ADD_POST, postText: postText
+         type: ADD_POST
      }as const
  }
 
