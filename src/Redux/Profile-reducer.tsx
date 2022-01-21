@@ -35,7 +35,7 @@ const ProfileReducer = (state: ArrayPostsType = initialState, action: ActionsTyp
                 stateCopy.posts = [...state.posts];
                 stateCopy.posts.push(newPost);
                 stateCopy.newPostText = '';
-                return stateCopy
+                return stateCopy;
             }
             case UPDATE_NEW_POST_TEXT: {
                 let stateCopy = {...state};
@@ -43,7 +43,7 @@ const ProfileReducer = (state: ArrayPostsType = initialState, action: ActionsTyp
                 return stateCopy;
             }
             default:
-                return state
+                return state;
         }
 }
 export default ProfileReducer;
