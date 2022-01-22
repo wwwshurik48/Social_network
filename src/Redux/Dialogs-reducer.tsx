@@ -3,14 +3,14 @@ import {ActionsTypes} from "./State";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
 const SEND_MESSAGE = "SEND-MESSAGE"
 
-    export type DialogsType = {
-        id: string
-        name: string
-    }
-    export type MessageType = {
-        id: number
-        message: string
-    }
+export type DialogsType = {
+    id: string
+    name: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
 export type DialogsReducerType = {
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
@@ -37,18 +37,19 @@ let initialState: DialogsReducerType = {
 
 const DialogsReducer = (state: DialogsReducerType = initialState, action: ActionsTypes): DialogsReducerType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: {
-            let stateCopy = {...state};
-            stateCopy.newMessageBody = action.body;
-            return stateCopy;
-        }
-        case SEND_MESSAGE: {
-            let stateCopy = {...state};
-            let body = stateCopy.newMessageBody;
-            stateCopy.newMessageBody = '';
-            stateCopy.messages.push({id: 5, message: body})
-            return stateCopy
-        }
+        case UPDATE_NEW_MESSAGE_BODY:
+            return {
+                ...state,
+                newMessageBody: action.body
+            };
+
+        case SEND_MESSAGE:
+            let body = state.newMessageBody;
+            return  {
+                ...state,
+                newMessageBody: '',
+                messages: [...state.messages, {id: 5, message: body}]
+            };
         default:
             return state
     }

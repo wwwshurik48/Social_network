@@ -16,7 +16,7 @@ import {AppStateType} from "../../../Redux/redux-store";
 
 export const MyPosts = (props: MyPostsType) => {
 
-    let PostsElement = props.state.profilePage.posts.map(m => <Posts message={m.message} like={m.like}/>)
+    let PostsElement = props.state.profilePage.posts.map(m => <Posts message={m.message} key={m.id} like={m.like}/>)
 
     // let newTextElement = React.createRef<HTMLTextAreaElement>();
 
