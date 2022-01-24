@@ -1,24 +1,25 @@
 import React from 'react';
-import ProfileReducer from "./Profile-reducer";
-import DialogsReducer from "./Dialogs-reducer";
 import SidebarReducer from "./Sidebar-reducer";
+import DialogsReducer from "./Dialogs-reducer";
+import ProfileReducer from "./Profile-reducer";
+
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
 const SEND_MESSAGE = "SEND-MESSAGE"
 
- export type propsStateType = {
+type propsStateType = {
     profilePage: propsPostsArrayType
     dialogsPage: propsDialogsArrayType
     sideBar: {}
 }
-export type propsPostsType = {
+type propsPostsType = {
     id: number
     message: string
     like: number
 }
-export type propsPostsArrayType = {
+type propsPostsArrayType = {
     posts: Array<propsPostsType>
     newPostText: string
 }
@@ -39,37 +40,37 @@ type propsDialogsArrayType = {
     newMessageBody: string
 }
 
-export type StoreType = {
+type StoreType = {
     _state: propsStateType
     _callSubscriber: (store: StoreType) => void
     subscriber: (observer: (store: StoreType) => void) => void
     getState: () => propsStateType
     dispatch: (action: ActionsTypes) => void
 }
-export type ActionsTypes =
+type ActionsTypes =
     | ReturnType<typeof AddPostAC>
     | ReturnType<typeof UpdateNewPostAction>
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof updateNewMessageBody>;
 
-export const AddPostAC = () => {
+ const AddPostAC = () => {
      return {
          type: ADD_POST
      }as const
  }
 
- export const UpdateNewPostAction = (newText: string) => {
+  const UpdateNewPostAction = (newText: string) => {
      return{
          type: UPDATE_NEW_POST_TEXT, newText
      }as const
  }
 
- export const sendMessageAC = () => {
+  const sendMessageAC = () => {
      return {
          type: SEND_MESSAGE
      } as const
  }
- export const updateNewMessageBody = (body: string) => {
+ const updateNewMessageBody = (body: string) => {
      return{
          type: UPDATE_NEW_MESSAGE_BODY, body: body
      } as const
@@ -116,8 +117,7 @@ const store: StoreType = {
         return this._state;
     },
 
-    dispatch(action: ActionsTypes) {
-
+    dispatch(action: any) {
         this._state.profilePage = ProfileReducer(this._state.profilePage, action)
         this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._state.sideBar = SidebarReducer(store)

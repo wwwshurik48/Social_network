@@ -1,5 +1,3 @@
-import {ActionsTypes} from "./State";
-
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
 const SEND_MESSAGE = "SEND-MESSAGE"
 
@@ -16,6 +14,11 @@ export type DialogsReducerType = {
     messages: Array<MessageType>
     newMessageBody: string
 }
+
+type ActionsTypes =
+    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof updateNewMessageBody>;
+
 
 let initialState: DialogsReducerType = {
     dialogs: [
@@ -45,7 +48,7 @@ const DialogsReducer = (state: DialogsReducerType = initialState, action: Action
 
         case SEND_MESSAGE:
             let body = state.newMessageBody;
-            return  {
+            return {
                 ...state,
                 newMessageBody: '',
                 messages: [...state.messages, {id: 5, message: body}]
@@ -54,4 +57,16 @@ const DialogsReducer = (state: DialogsReducerType = initialState, action: Action
             return state
     }
 }
+export const sendMessageAC = () => {
+    return {
+        type: SEND_MESSAGE
+    } as const
+}
+export const updateNewMessageBody = (body: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY, body: body
+    } as const
+}
+
+
 export default DialogsReducer;

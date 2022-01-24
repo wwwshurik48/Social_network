@@ -7,16 +7,13 @@ import App from './App';
 import store from './Redux/redux-store'
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {AppStateType} from "./Redux/redux-store";
 
     ReactDOM.render(
-        <React.StrictMode>
             <BrowserRouter>
                 <Provider store={store}>
                     <App />
                 </Provider>
-            </BrowserRouter>
-        </React.StrictMode>,
+            </BrowserRouter>,
         document.getElementById('root')
     );
 

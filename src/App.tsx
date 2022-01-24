@@ -8,15 +8,7 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-
-//
-// export type propsStateForApp = {
-//     store: StoreType
-//     // stateApp: propsStateType
-//     // dispatch: (action: ActionsTypes) => void
-//     // addPost: (postText: string) => void
-//     // updateNewPostText: (newText: string) => void
-// }
+import UsersContainer from "./Components/Users/UsersContainer";
 
 function App() {
 
@@ -33,12 +25,12 @@ function App() {
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
+                    <Route path='/users' element={<UsersContainer/>}/>
                 </Routes>
             </div>
         </div>
     );
 }
-
 export default App;
 
 // function App(props: propsStateForApp) {

@@ -1,5 +1,3 @@
-import {ActionsTypes} from "./State";
-
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
@@ -13,6 +11,9 @@ type PostsType = {
     message: string
     like: number
 }
+type ActionsTypes =
+    | ReturnType<typeof AddPostAC>
+    | ReturnType<typeof UpdateNewPostAction>
 
 let initialState = {
     posts: [
@@ -48,6 +49,17 @@ const ProfileReducer = (state: ArrayPostsType = initialState, action: ActionsTyp
 }
 }
 export default ProfileReducer;
+export const AddPostAC = () => {
+    return {
+        type: ADD_POST
+    }as const
+}
+
+export const UpdateNewPostAction = (newText: string) => {
+    return{
+        type: UPDATE_NEW_POST_TEXT, newText
+    }as const
+}
 
 
 //switch (action.type) {
