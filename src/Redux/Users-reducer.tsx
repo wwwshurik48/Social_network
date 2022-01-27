@@ -16,12 +16,12 @@ export type UserType = {
 }
 
 type ActionsType =
-    | ReturnType<typeof FollowAC>
-    | ReturnType<typeof UnfollowAC>
-    | ReturnType<typeof SetUsersAC>
-    | ReturnType<typeof SetCurrentPageAC>
-    | ReturnType<typeof SetTotalUsersCountAC>
-    | ReturnType<typeof ToggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 
 let initialState = {
@@ -83,12 +83,12 @@ const UsersReducer = (state: InitialStateType = initialState, action: ActionsTyp
     }
 }
 
-export const UnfollowAC = (userId: number) => ({type: UNFOLLOW, userId} as const);
-export const FollowAC = (userId: number) => ({type: FOLLOW, userId} as const);
-export const SetUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users} as const);
-export const SetCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const);
-export const SetTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount} as const);
-export const ToggleIsFetchingAC = (isFetching: boolean) => ({
+export const unfollow = (userId: number) => ({type: UNFOLLOW, userId} as const);
+export const follow = (userId: number) => ({type: FOLLOW, userId} as const);
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users} as const);
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const);
+export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount} as const);
+export const toggleIsFetching = (isFetching: boolean) => ({
     type: TOGGLE_IS_FETCHING, isFetching
 } as const)
 
