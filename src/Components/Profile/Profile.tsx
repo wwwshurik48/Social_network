@@ -1,18 +1,22 @@
 import React from "react";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import ContainerMyPosts from "./MyPosts/ContainerMyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-export const Profile = () => {
+type propsType = {
+    profile: any
+    setUserProfile: (profile: string) => void
+}
+const Profile = (props: propsType) => {
 
     return (
         <div>
-            <ProfileInfo/>
-            <ContainerMyPosts
-
-            />
+            <ProfileInfo profile={props.profile}/>
+            <ContainerMyPosts/>
         </div>
     )
 }
+
+export default Profile;
 
 // type propsPostDataForProfile = {
 //     store: StoreType

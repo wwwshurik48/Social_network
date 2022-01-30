@@ -6,3 +6,24 @@
 .avaBox {
     padding: 10px 10px 0 10px;
 }
+.avaBox img {
+    width: 200px;
+    height: 200px;
+}
+.aboutMe {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+.contacts {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+.capitalLetter {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+

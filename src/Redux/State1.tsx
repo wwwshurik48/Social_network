@@ -76,7 +76,7 @@ type ActionsTypes =
      } as const
  }
 
-const store: StoreType = {
+const store: any = {
     _state: {
         profilePage: {
             posts: [
@@ -109,7 +109,7 @@ const store: StoreType = {
         console.log('state change');
     },
 
-    subscriber(observer) {
+    subscriber(observer: any) {
         this._callSubscriber = observer;
     },
 
@@ -118,7 +118,7 @@ const store: StoreType = {
     },
 
     dispatch(action: any) {
-        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.profilePage = ProfileReducer(this._state.profilePage as any, action)
         this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
         this._state.sideBar = SidebarReducer(store)
         this._callSubscriber(store)
@@ -146,4 +146,4 @@ const store: StoreType = {
     }
 }
 
-export default store;
+// export default store;
