@@ -18,13 +18,10 @@ export class HeaderContainer extends React.Component<HeaderContainerType>{
             withCredentials: true
         })
             .then(response => {
-                    debugger
                 if(response.data.resultCode === 0) {
-                    debugger
                     let {id, email, login} = response.data.data
                     this.props.setAuthUserDataAC(id, email, login);
                 }
-                debugger
             });
     }
     render () {
