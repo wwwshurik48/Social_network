@@ -5,7 +5,7 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 type ArrayPostsType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: string
+    profile: null | ProfileType
 }
 
 type PostsType = {
@@ -25,45 +25,68 @@ let initialState = {
         {id: 3, message: 'My name Alex', like: 11}
     ],
     newPostText: 'it-kamasutra',
-    profile: ''
+    profile: null
 };
 
 const ProfileReducer = (state: ArrayPostsType = initialState, action: ActionsTypes): ArrayPostsType => {
-        switch (action.type) {
-    case ADD_POST: {
-        let newPost: PostsType = {
-            id: 4,
-            message: state.newPostText,
-            like: 0
-        };
-        return {
-            ...state,
-            posts: [...state.posts, newPost],
-            newPostText: ''
-        };
-    }
-    case UPDATE_NEW_POST_TEXT: {
-        return {
-            ...state,
-            newPostText: action.newText
-        };
-    }
-            case SET_USER_PROFILE: {
-                return {
-                    ...state,
-                    profile: action.profile
-                }
+    switch (action.type) {
+        case ADD_POST: {
+            let newPost: PostsType = {
+                id: 4,
+                message: state.newPostText,
+                like: 0
+            };
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ''
+            };
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            return {
+                ...state,
+                newPostText: action.newText
+            };
+        }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
             }
-    default:
-        return state;
-}
+        }
+        default:
+            return state;
+    }
 }
 export default ProfileReducer;
 
 export const AddPostAC = () => ({type: ADD_POST} as const)
 export const UpdateNewPostAction = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT, newText}as const)
-export const setUserProfile = (profile: string) => ({type: SET_USER_PROFILE, profile} as const)
+    type: UPDATE_NEW_POST_TEXT, newText
+} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 
-
+export type ProfileType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotoType
+}
+export type ContactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+export type PhotoType = {
+    small: null | string
+    large: null | string
+}

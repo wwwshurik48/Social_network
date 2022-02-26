@@ -2,48 +2,49 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import yes from '../../../assets/image/yes.png'
 import no from '../../../assets/image/no.png'
+import {ProfileType} from "../../../Redux/Profile-reducer";
 
-type rootType = {
-    profile: propsType
+type RootType = {
+    profile:  null| ProfileType
     setUserProfile?: (profile: string) => void
 }
 
-type propsType = {
-    aboutMe: string
-    contacts: contactsType
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: photosType
-}
+// type propsType = {
+//     aboutMe: string
+//     contacts: contactsType
+//     lookingForAJob: boolean
+//     lookingForAJobDescription: string
+//     fullName: string
+//     userId: number
+//     photos: photosType
+// }
+//
+// type contactsType = {
+//     facebook: string
+//     website: null
+//     vk: string
+//     twitter: string
+//     instagram: string
+//     youtube: null
+//     github: string
+//     mainLink: null
+// }
+//
+// type photosType = {
+//     small: string
+//     large: string
+// }
 
-type contactsType = {
-    facebook: string
-    website: null
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: null
-    github: string
-    mainLink: null
-}
+const ProfileInfo = (props: RootType) => {
 
-type photosType = {
-    small: string
-    large: string
-}
-
-
-
-const ProfileInfo = (props: rootType) => {
+    if(!props.profile) return <div>loading...</div>
     return (
         <div className={s.profileBox}>
             <div className={s.profile}>
                 <img src="https://tipik.ru/wp-content/uploads/2018/11/1316796242_67_www.nevseoboi.com_.ua_.jpg"
                      alt="img"/>
                 <div className={s.avaBox}>
-                    <img className={s.avaBoxPhoto} src={props.profile.photos?.large}/>
+                    <img className={s.avaBoxPhoto} src={props.profile.photos.large? props.profile.photos.large: ''}/>
                 </div>
                 <div>
                     <div className={s.capitalLetter}>ABOUT ME: </div>
@@ -63,6 +64,5 @@ const ProfileInfo = (props: rootType) => {
         </div>
     )
 }
-
 
 export default ProfileInfo;

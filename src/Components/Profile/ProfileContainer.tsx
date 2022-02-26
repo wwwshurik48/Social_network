@@ -2,22 +2,22 @@ import React from "react";
 import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {setUserProfile} from "../../Redux/Profile-reducer";
+import {ProfileType, setUserProfile} from "../../Redux/Profile-reducer";
 import Profile from "./Profile";
 import {withRouter} from "../../hoc/withRouter";
 import Preloader from "../common/Preloader/Preloader";
 
 
 type ProfileContainerType = {
-     setUserProfile: (profile: string) => void
-     profile: string
+     setUserProfile: (profile: ProfileType) => void
+     profile: null| ProfileType
      params: {userId: string}
  }
 
 class ProfileContainer extends  React.Component<ProfileContainerType> {
-
     componentDidMount() {
-        const userId = this.props.params.userId
+        let userId = this.props.params.userId
+        if (!userId) userId='2'
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 console.log(response.data)
