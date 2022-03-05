@@ -1,28 +1,32 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ActionType, DataType, InitialStateType, setAuthUserDataAC} from "../../Redux/Auth-reducer";
+import {setAuthUserDataAC} from "../../Redux/Auth-reducer";
 import {AppStateType} from "../../Redux/redux-store";
+import {authTC} from "../../Redux/Users-reducer";
+
 
 export type HeaderContainerType = {
     isAuth: boolean
     login: null | string
     setAuthUserDataAC: (id: number, email: string, login: string) => void
+    authTC: () => void
 }
 
 export class HeaderContainer extends React.Component<HeaderContainerType>{
     componentDidMount() {
+        this.props.authTC()
+
         // this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                if(response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data
-                    this.props.setAuthUserDataAC(id, email, login);
-                }
-            });
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+        //     withCredentials: true
+        // })
+        //     usersAPI.auth().then(response => {
+        //         if(response.data.resultCode === 0) {
+        //             let {id, email, login} = response.data.data
+        //             this.props.setAuthUserDataAC(id, email, login);
+        //         }
+        //     });
     }
     render () {
         return <Header {...this.props}/>
@@ -38,5 +42,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 });
 type MapDispatchToPropsType = {
     setAuthUserDataAC: (id: number, email: string, login: string) => void
+    authTC: () => void
 }
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setAuthUserDataAC}) (HeaderContainer);
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setAuthUserDataAC, authTC}) (HeaderContainer);
